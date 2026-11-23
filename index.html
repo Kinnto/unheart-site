@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unheart — Bulk Unlike for X</title>
+  <meta name="description" content="Remove your likes on X in bulk with one click. Private, honest, and paced so X doesn't push back.">
+  <link rel="icon" href="icon128.png">
+  <style>
+    :root {
+      --bg: #ffffff; --fg: #0f1419; --muted: #536471; --card: #f7f9f9; --border: #e1e8ed;
+      --accent: #ff4d6d; --accent-fg: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #000000; --fg: #e7e9ea; --muted: #8b98a5; --card: #16181c; --border: #2f3336; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    a { color: var(--accent); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    header { display: flex; align-items: center; gap: 10px; padding: 20px 0; font-weight: 800; font-size: 20px; }
+    header img { width: 32px; height: 32px; }
+    .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; padding: 48px 0 64px; }
+    h1 { font-size: clamp(36px, 6vw, 56px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em; }
+    .lead { font-size: 20px; color: var(--muted); margin: 0 0 28px; }
+    .cta { display: inline-block; background: var(--accent); color: var(--accent-fg); text-decoration: none; font-weight: 700; padding: 14px 28px; border-radius: 9999px; font-size: 18px; }
+    .cta[aria-disabled="true"] { opacity: 0.85; cursor: default; }
+    .note { color: var(--muted); font-size: 14px; margin-top: 12px; }
+    .mock { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 0; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,.12); }
+    .mock .bar { display: flex; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); font-weight: 700; }
+    .mock .body { padding: 22px 20px 24px; }
+    .mock .count { font-size: 34px; font-weight: 800; }
+    .mock .rate { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
+    .mock .btns { display: flex; gap: 10px; }
+    .mock .btn { flex: 1; text-align: center; border: 1px solid var(--border); border-radius: 9999px; padding: 10px; font-weight: 700; }
+    section { padding: 56px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: 30px; margin: 0 0 28px; letter-spacing: -0.01em; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .card h3 { margin: 0 0 8px; font-size: 19px; }
+    .card p { margin: 0; color: var(--muted); }
+    ol.steps { padding-left: 22px; margin: 0; }
+    ol.steps li { margin-bottom: 10px; }
+    details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+    summary { cursor: pointer; font-weight: 700; }
+    details p { color: var(--muted); margin: 10px 0 0; }
+    footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 24px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><img src="icon128.png" alt="">Unheart</header>
+
+    <div class="hero">
+      <div>
+        <h1>Turn your likes into ex-likes.</h1>
+        <p class="lead">Remove hundreds or thousands of likes on X with one click. Private, honest, and paced so X doesn't push back.</p>
+        <a class="cta" href="#" aria-disabled="true">Coming soon to Chrome</a>
+        <p class="note">Free · Works on x.com in Chrome · Nothing leaves your browser</p>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar"><span>Unheart</span><span>–</span></div>
+        <div class="body">
+          <div class="count">1,284 unliked</div>
+          <div class="rate">~52 / min</div>
+          <div class="btns"><span class="btn">Pause</span><span class="btn">Stop</span></div>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <h2>Why Unheart</h2>
+      <div class="grid">
+        <div class="card"><h3>One click</h3><p>Open your Likes and press "Unlike all" — or try 10 first. No settings to figure out.</p></div>
+        <div class="card"><h3>Honest count</h3><p>A like only counts as removed once it actually stays removed. If X quietly undoes one, Unheart notices.</p></div>
+        <div class="card"><h3>Handles limits for you</h3><p>Unheart paces itself and waits automatically when X asks it to slow down, then carries on.</p></div>
+        <div class="card"><h3>You stay in control</h3><p>Pause, resume or stop at any time. Progress survives a page reload.</p></div>
+        <div class="card"><h3>Private by design</h3><p>Runs entirely in your browser. No account, no servers, no passwords or cookies touched.</p></div>
+        <div class="card"><h3>Free</h3><p>Clearing your likes costs nothing.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li>Install Unheart and click its icon — it opens your Likes on X.</li>
+        <li>Press <strong>Unlike all</strong> (or <strong>try 10 first</strong>) and confirm once.</li>
+        <li>Keep the tab visible while it runs — put its window side by side with your other work.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Questions</h2>
+      <details><summary>Can I undo it?</summary><p>No. Removing a like can't be undone, which is why Unheart asks you to confirm once and lets you try 10 first.</p></details>
+      <details><summary>Why isn't it instant?</summary><p>X limits how fast likes can be removed. Unheart runs at about one per second at best and slows down when X asks, so your run finishes instead of getting blocked.</p></details>
+      <details><summary>Some old likes are still there.</summary><p>X sometimes stops loading very old likes on the Likes page. Reload the page and run Unheart again to catch more of them.</p></details>
+      <details><summary>Does Unheart collect my data?</summary><p>No. Everything happens in your browser. See the <a href="privacy.html">privacy policy</a>.</p></details>
+    </section>
+
+    <footer>
+      Unheart is not affiliated with or endorsed by X Corp. · <a href="privacy.html">Privacy policy</a>
+    </footer>
+  </div>
+</body>
+</html>
