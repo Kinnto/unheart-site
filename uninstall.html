@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unheart — Sorry to see you go</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="icon128.png">
+  <style>
+    :root { --bg: #ffffff; --fg: #0f1419; --muted: #536471; --card: #f7f9f9; --border: #e1e8ed; --accent: #ff4d6d; --accent-fg: #ffffff; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #000000; --fg: #e7e9ea; --muted: #8b98a5; --card: #16181c; --border: #2f3336; } }
+    * { box-sizing: border-box; }
+    body { max-width: 560px; margin: 40px auto; padding: 0 20px; background: var(--bg); color: var(--fg); font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    a { color: var(--accent); }
+    header { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; margin-bottom: 24px; }
+    header img { width: 32px; height: 32px; }
+    h1 { font-size: 36px; line-height: 1.1; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .muted { color: var(--muted); }
+    .choices { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 16px; }
+    .choice, .send { font: inherit; font-weight: 700; border-radius: 9999px; padding: 10px 20px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--fg); }
+    .choice:hover { background: var(--card); }
+    .choice[aria-checked="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: var(--card); }
+    .send { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); padding: 12px 28px; margin-top: 12px; }
+    .send:disabled { opacity: 0.5; cursor: default; }
+    textarea { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--fg); resize: vertical; }
+    #status { margin-top: 12px; min-height: 1.6em; }
+    [hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <header><img src="icon128.png" alt="">Unheart</header>
+  <h1>Sorry to see you go</h1>
+  <p class="muted">Mind telling us why? It takes five seconds and helps us improve. Totally optional.</p>
+  <form id="form">
+    <div class="choices" role="radiogroup" aria-label="Reason for uninstalling">
+      <button type="button" class="choice" role="radio" aria-checked="false" data-choice="It didn't work">It didn't work</button>
+      <button type="button" class="choice" role="radio" aria-checked="false" data-choice="Too slow">Too slow</button>
+      <button type="button" class="choice" role="radio" aria-checked="false" data-choice="I'm done cleaning up">I'm done cleaning up</button>
+      <button type="button" class="choice" role="radio" aria-checked="false" data-choice="Other">Other</button>
+    </div>
+    <textarea id="message" rows="4" maxlength="1000" placeholder="Anything else? (optional)"></textarea>
+    <button type="submit" class="send" id="send" disabled>Send</button>
+    <div id="status" role="status"></div>
+  </form>
+  <p class="muted"><a href="index.html">Back to Unheart</a> · <a href="privacy.html">Privacy policy</a></p>
+  <script>
+    const WEB3FORMS_KEY = '';
+
+    const form = document.getElementById('form');
+    const send = document.getElementById('send');
+    const status = document.getElementById('status');
+    const message = document.getElementById('message');
+    const choices = Array.from(document.querySelectorAll('.choice'));
+    let choice = null;
+
+    if (!WEB3FORMS_KEY) form.hidden = true;
+
+    for (const button of choices) {
+      button.addEventListener('click', () => {
+        choice = button.dataset.choice;
+        for (const other of choices) other.setAttribute('aria-checked', String(other === button));
+        send.disabled = false;
+      });
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!choice) return;
+      send.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'Unheart uninstall feedback: ' + choice,
+            from_name: 'Unheart',
+            choice,
+            message: message.value.trim().slice(0, 1000),
+            source: 'uninstall',
+          }),
+        });
+        if (!response.ok) throw new Error('bad status');
+        form.hidden = true;
+        status.textContent = 'Thank you. We read every message.';
+        form.after(status);
+      } catch {
+        status.textContent = "Couldn't send. Please try again.";
+        send.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
